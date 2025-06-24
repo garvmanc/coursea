@@ -1,8 +1,25 @@
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+
 const app = express();
+
 const authRoutes = require("./routes/auth");
-const courseRoutes = require("./routes/courses");
+const courseRoutes = require("./routes/course");
 const purchaseRoutes = require("./routes/purchase");
 const userRoutes = require("./routes/user");
 
-app.post
+app.use(express.json());
+app.use("/auth", authRoutes);
+app.use("/course", courseRoutes);
+app.use("/purchase", purchaseRoutes);
+app.use("/user", userRoutes);
+
+mongoose.connect(process.env.MONGODB, {
+    useNewUrlPraser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("Connected"))
+.catch((err) => console.error("Connection error: ", err));
+
+app.listen(3000);
