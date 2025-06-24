@@ -11,12 +11,12 @@ const userRoutes = require("./routes/user");
 
 app.use(express.json());
 app.use("/auth", authRoutes);
-app.use("/course", courseRoutes);
+app.use("/courses", courseRoutes);
 app.use("/purchase", purchaseRoutes);
 app.use("/user", userRoutes);
 
-mongoose.connect(process.env.MONGODB, {
-    useNewUrlPraser: true,
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
     useUnifiedTopology: true,
 })
 .then(() => console.log("Connected"))
